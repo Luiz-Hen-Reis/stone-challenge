@@ -2,7 +2,7 @@
 
 import StyledComponentsRegistry from "@/app/registry";
 import { ReactNode } from "react";
-import { styled } from "styled-components";
+import styled from "styled-components";
 import DolarsImage from "./dolars-image";
 
 interface Props {
