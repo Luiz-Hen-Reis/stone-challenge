@@ -12,6 +12,7 @@ const Image = styled.div`
   background-repeat: no-repeat;
   width: 100%;
   height: 100%;
+  z-index: -1;
 `;
 
 export default function DolarsImage() {
