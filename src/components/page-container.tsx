@@ -4,6 +4,7 @@ import StyledComponentsRegistry from "@/app/registry";
 import { ReactNode } from "react";
 import styled from "styled-components";
 import DolarsImage from "./dolars-image";
+import Header from "./header";
 
 interface Props {
   children: ReactNode;
@@ -16,7 +17,10 @@ const Container = styled.div`
 export default function PageContainer({ children }: Props) {
   return (
     <StyledComponentsRegistry>
-      <Container>{children}</Container>
+      <Container>
+        <Header />
+        {children}
+      </Container>
       <DolarsImage />
     </StyledComponentsRegistry>
   );
