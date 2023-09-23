@@ -1,6 +1,14 @@
 :root {
   --brand-color: #008b57;
   --medium-gray: #8c9cad;
+  --dark-gray: #2e3742;
+  --light-gray: #d7e0eb;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 * {
@@ -21,4 +29,8 @@ body {
 
 body {
   position: relative;
+}
+
+main {
+  margin-top: 7.1rem;
 }
