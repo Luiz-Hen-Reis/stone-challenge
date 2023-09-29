@@ -28,7 +28,7 @@ export default function ConversorContainer() {
       <InputField
         inputId="dolar-value"
         labelName="Dólar"
-        placeholder="$ 0,00"
+        placeholder="0,00"
         prefix="$"
         inputValue={dolarValue}
         updateInputValue={updateDolarValue}
