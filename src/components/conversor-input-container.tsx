@@ -3,6 +3,7 @@
 import styled from "styled-components";
 import InputField from "./input-field";
 import { useState } from "react";
+import { useAppContext } from "@/useAppContext";
 
 const Container = styled.div`
   display: flex;
@@ -12,16 +13,8 @@ const Container = styled.div`
 `;
 
 export default function ConversorInputContainer() {
-  const [dolarValue, setDolarValue] = useState<string>("");
-  const [taxValue, setTaxValue] = useState<string>("");
-
-  const updateDolarValue = (newDolarValue: string) => {
-    setDolarValue(newDolarValue);
-  };
-
-  const updateTaxValue = (newTaxValue: string) => {
-    setTaxValue(newTaxValue);
-  };
+  const { dolarValue, updateDolarValue, taxValue, updateTaxValue } =
+    useAppContext();
 
   return (
     <Container>
