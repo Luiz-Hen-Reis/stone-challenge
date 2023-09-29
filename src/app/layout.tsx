@@ -1,14 +1,11 @@
+"use client";
+
 import "./globals.css";
-import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import PageContainer from "@/components/page-container";
+import { AppContextProvider } from "@/useAppContext";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500"] });
-
-export const metadata: Metadata = {
-  title: "Stone Currency",
-  description: "Conversor de dólar para real",
-};
 
 export default function RootLayout({
   children,
@@ -18,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <PageContainer>{children}</PageContainer>
+        <AppContextProvider>
+          <PageContainer>{children}</PageContainer>
+        </AppContextProvider>
       </body>
     </html>
   );
