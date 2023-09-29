@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 import InputField from "./input-field";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 
 const Form = styled.form`
   display: flex;
@@ -15,12 +15,12 @@ export default function ConversorContainer() {
   const [dolarValue, setDolarValue] = useState<string>("");
   const [taxValue, setTaxValue] = useState<string>("");
 
-  const handleChangeDolarValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setDolarValue(e.target.value);
+  const updateDolarValue = (newDolarValue: string) => {
+    setDolarValue(newDolarValue);
   };
 
-  const handleChangeTaxValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setTaxValue(e.target.value);
+  const updateTaxValue = (newTaxValue: string) => {
+    setTaxValue(newTaxValue);
   };
 
   return (
@@ -29,15 +29,16 @@ export default function ConversorContainer() {
         inputId="dolar-value"
         labelName="Dólar"
         placeholder="$ 0,00"
-        handleChange={handleChangeDolarValue}
-        value={dolarValue}
+        prefix="$"
+        inputValue={dolarValue}
+        updateInputValue={updateDolarValue}
       />
       <InputField
         inputId="state-tax"
         labelName="Taxa do Estado"
         placeholder="0 %"
-        handleChange={handleChangeTaxValue}
-        value={taxValue}
+        inputValue={taxValue}
+        updateInputValue={updateTaxValue}
       />
     </Form>
   );
