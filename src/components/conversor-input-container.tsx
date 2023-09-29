@@ -11,7 +11,7 @@ const Form = styled.form`
   font-family: inherit;
 `;
 
-export default function ConversorContainer() {
+export default function ConversorInputContainer() {
   const [dolarValue, setDolarValue] = useState<string>("");
   const [taxValue, setTaxValue] = useState<string>("");
 

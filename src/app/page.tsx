@@ -1,12 +1,12 @@
 "use client";
 
-import ConversorContainer from "@/components/conversor-container";
+import ConversorInputContainer from "@/components/conversor-input-container";
 
 export default function Home() {
   return (
     <>
       <main>
-        <ConversorContainer />
+        <ConversorInputContainer />
       </main>
     </>
   );
