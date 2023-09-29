@@ -1,3 +1,13 @@
+"use client";
+
+import ConversorContainer from "@/components/conversor-container";
+
 export default function Home() {
-  return <div>home</div>;
+  return (
+    <>
+      <main>
+        <ConversorContainer />
+      </main>
+    </>
+  );
 }
