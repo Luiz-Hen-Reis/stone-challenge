@@ -1,14 +1,15 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import { useState, FormEvent, useCallback, InputHTMLAttributes } from "react";
 import styled from "styled-components";
 
-interface Props {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  prefix?: string;
   labelName: string;
   inputId: "dolar-value" | "state-tax";
   placeholder: string;
-  value: string;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  inputValue: string;
+  updateInputValue: (newValue: string) => void;
 }
 
 const Container = styled.div`
@@ -36,19 +37,33 @@ export default function InputField({
   labelName,
   inputId,
   placeholder,
-  value,
-  handleChange,
-}: Props) {
+  inputValue,
+  updateInputValue,
+}: InputProps) {
+  const currencyInputMask = (e: FormEvent<HTMLInputElement>) => {
+    let value = e.currentTarget.value;
+    value = value.replace(/\D/g, "");
+    value = value.replace(/(\d)(\d{2})$/, "$1,$2");
+    value = value.replace(/(?=(\d{3})+(\D))\B/g, ",");
+
+    e.currentTarget.value = value;
+
+    updateInputValue(e.currentTarget.value);
+
+    return inputValue;
+  };
+
+  const handleKeyUp = useCallback((e: FormEvent<HTMLInputElement>) => {
+    currencyInputMask(e);
+  }, []);
+
   return (
     <Container>
       <label htmlFor={inputId}>{labelName}</label>
-      <input
-        type="number"
-        placeholder={placeholder}
-        id={inputId}
-        value={value}
-        onChange={handleChange}
-      />
+      <div>
+        <span>$</span>
+        <input placeholder={placeholder} id={inputId} onKeyUp={handleKeyUp} />
+      </div>
     </Container>
   );
 }
