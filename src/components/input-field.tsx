@@ -24,16 +24,29 @@ const Container = styled.div`
     color: var(--dark-gray);
   }
 
-  input {
-    width: 16.8rem;
-    padding: 1.6rem;
-    border-radius: 4px;
-    border: 1px solid var(--medium-gray);
-    box-shadow: var(--light-gray) 0px 10px 5px;
+  div {
+    position: relative;
+
+    input {
+      width: 16.8rem;
+      padding: 1.6rem;
+      border-radius: 4px;
+      border: 1px solid var(--medium-gray);
+      box-shadow: var(--light-gray) 0px 10px 5px;
+      padding-left: 2.5rem;
+    }
   }
 `;
 
+const DolarSign = styled.span`
+  position: absolute;
+  top: 1.8rem;
+  left: 1.8rem;
+  z-index: 99;
+`;
+
 export default function InputField({
+  prefix,
   labelName,
   inputId,
   placeholder,
@@ -53,16 +66,37 @@ export default function InputField({
     return inputValue;
   };
 
+  const percentageInputMask = (e: FormEvent<HTMLInputElement>) => {
+    let value = e.currentTarget.value;
+
+    value = value.replace(/[^\d,]/g, "");
+    value = value.replace(/,/g, "");
+    value = value.replace(/(\d)(\d{2})$/, "$1,$2");
+
+    value = value.replace(/(\d)(?=(\d{3})+\b)/g, "$1,");
+    e.currentTarget.value = value;
+
+    updateInputValue(e.currentTarget.value);
+
+    return inputValue;
+  };
+
   const handleKeyUp = useCallback((e: FormEvent<HTMLInputElement>) => {
-    currencyInputMask(e);
+    inputId === "dolar-value" && currencyInputMask(e);
+    inputId === "state-tax" && percentageInputMask(e);
   }, []);
 
   return (
     <Container>
       <label htmlFor={inputId}>{labelName}</label>
       <div>
-        <span>$</span>
-        <input placeholder={placeholder} id={inputId} onKeyUp={handleKeyUp} />
+        {prefix && <DolarSign>{prefix}</DolarSign>}
+        <input
+          placeholder={placeholder}
+          id={inputId}
+          onKeyUp={handleKeyUp}
+          maxLength={inputId === "state-tax" ? 6 : 100}
+        />
       </div>
     </Container>
   );
