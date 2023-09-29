@@ -4,7 +4,7 @@ import styled from "styled-components";
 import InputField from "./input-field";
 import { useState } from "react";
 
-const Form = styled.form`
+const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -24,7 +24,7 @@ export default function ConversorInputContainer() {
   };
 
   return (
-    <Form>
+    <Container>
       <InputField
         inputId="dolar-value"
         labelName="Dólar"
@@ -40,6 +40,6 @@ export default function ConversorInputContainer() {
         inputValue={taxValue}
         updateInputValue={updateTaxValue}
       />
-    </Form>
+    </Container>
   );
 }
