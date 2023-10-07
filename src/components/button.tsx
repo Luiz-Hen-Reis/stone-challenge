@@ -1,6 +1,8 @@
 "use client";
 
+import { useCurrency } from "@/hooks/useCurrency";
 import { useAppContext } from "@/useAppContext";
+import { formatDolarValueToNumber } from "@/utils/formatDolarValueToNumber";
 import { ReactNode, useState } from "react";
 import styled from "styled-components";
 
@@ -37,13 +39,48 @@ const StyledButton = styled.button<{ disabled?: boolean; variant?: boolean }>`
 
 export default function Button({ children, disabled, variant }: Props) {
   const [isCalculated, setIsCalculated] = useState<boolean>(false);
-  const { result, handleResult } = useAppContext();
+  const {
+    result,
+    handleResult,
+    dolarValue,
+    taxValue,
+    paymentMethod,
+    iofValue,
+    updateDolarValue,
+    updateTaxValue,
+  } = useAppContext();
+  const { data } = useCurrency();
+
+  const formatPercentageToDecimalValue = (taxValue: string) => {
+    const taxValueToNumber = Number(taxValue.replace(",", "."));
+    const taxValueInDecimal = taxValueToNumber / 100;
+
+    return taxValueInDecimal;
+  };
+
+  const dolar = formatDolarValueToNumber(dolarValue);
+  const tax = formatPercentageToDecimalValue(taxValue);
+  const dolarDayValue = Number(data?.USDBRL.ask);
 
   const handleIsCalculated = () => {
     if (result === 0) {
+      if (paymentMethod === "card") {
+        const value = (dolar + tax + iofValue) * dolarDayValue;
+
+        value.toFixed(2);
+        handleResult(value);
+      } else {
+        const value = (dolar + tax) * (dolarDayValue + iofValue);
+
+        value.toFixed(2);
+        handleResult(value);
+      }
+
       setIsCalculated(true);
     } else {
       handleResult(0);
+      updateDolarValue("");
+      updateTaxValue("");
       setIsCalculated(false);
     }
   };
