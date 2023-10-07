@@ -4,9 +4,12 @@ interface AppContextProps {
   dolarValue: string;
   taxValue: string;
   paymentMethod: "cash" | "card";
+  result: number;
+  iofValue: number;
   updateDolarValue: (newValue: string) => void;
   updateTaxValue: (newValue: string) => void;
   handlePaymentMethod: (paymentMethod: "cash" | "card") => void;
+  handleResult: (newResult: number) => void;
 }
 
 interface AppContextProviderProps {
@@ -19,6 +22,9 @@ export function AppContextProvider({ children }: AppContextProviderProps) {
   const [dolarValue, setDolarValue] = useState<string>("");
   const [taxValue, setTaxValue] = useState<string>("");
   const [paymentMethod, setPaymentMethod] = useState<"cash" | "card">("cash");
+  const [result, setResult] = useState<number>(0);
+
+  const iofValue = paymentMethod === "card" ? 0.064 : 0.011;
 
   const updateDolarValue = (newDolarValue: string) =>
     setDolarValue(newDolarValue);
@@ -29,15 +35,20 @@ export function AppContextProvider({ children }: AppContextProviderProps) {
     setPaymentMethod(paymentMethod);
   };
 
+  const handleResult = (newResult: number) => setResult(newResult);
+
   return (
     <AppContext.Provider
       value={{
         dolarValue,
         taxValue,
         paymentMethod,
+        result,
+        iofValue,
         updateDolarValue,
         updateTaxValue,
         handlePaymentMethod,
+        handleResult,
       }}
     >
       {children}
