@@ -2,17 +2,19 @@
 
 import { useCurrency } from "@/hooks/useCurrency";
 import { useAppContext } from "@/useAppContext";
-import { formatDolarValueToNumber } from "@/utils/formatDolarValueToNumber";
+import calculateResult from "@/utils/calculateResult";
+import formatDolarValueToNumber from "@/utils/formatDolarValueToNumber";
+import formatPercentageToDecimalValue from "@/utils/formatPercentageToDecimalValue";
 import { ReactNode, useState } from "react";
 import styled from "styled-components";
 
 interface Props {
   children: ReactNode;
   disabled?: boolean;
-  variant?: boolean;
+  variant?: "true";
 }
 
-const StyledButton = styled.button<{ disabled?: boolean; variant?: boolean }>`
+const StyledButton = styled.button<{ disabled?: boolean; variant?: "true" }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -51,31 +53,20 @@ export default function Button({ children, disabled, variant }: Props) {
   } = useAppContext();
   const { data } = useCurrency();
 
-  const formatPercentageToDecimalValue = (taxValue: string) => {
-    const taxValueToNumber = Number(taxValue.replace(",", "."));
-    const taxValueInDecimal = taxValueToNumber / 100;
-
-    return taxValueInDecimal;
-  };
-
   const dolar = formatDolarValueToNumber(dolarValue);
   const tax = formatPercentageToDecimalValue(taxValue);
   const dolarDayValue = Number(data?.USDBRL.ask);
 
   const handleIsCalculated = () => {
     if (result === 0) {
-      if (paymentMethod === "card") {
-        const value = (dolar + tax + iofValue) * dolarDayValue;
-
-        value.toFixed(2);
-        handleResult(value);
-      } else {
-        const value = (dolar + tax) * (dolarDayValue + iofValue);
-
-        value.toFixed(2);
-        handleResult(value);
-      }
-
+      calculateResult({
+        paymentMethod,
+        dolar,
+        tax,
+        dolarDayValue,
+        iofValue,
+        handleResult,
+      });
       setIsCalculated(true);
     } else {
       handleResult(0);
@@ -93,7 +84,7 @@ export default function Button({ children, disabled, variant }: Props) {
         </StyledButton>
       )}
       {variant && (
-        <StyledButton variant onClick={handleIsCalculated}>
+        <StyledButton variant="true" onClick={handleIsCalculated}>
           {children}
         </StyledButton>
       )}
