@@ -1,4 +1,4 @@
-export const formatDolarValueToNumber = (dolarValue: string) => {
+export default function formatDolarValueToNumber(dolarValue: string) {
   const dolarValueInNumberFormat = dolarValue.replace(",", ".");
   const arrayOfStrings = dolarValueInNumberFormat.split("");
   const justNumbersInStringFormat = arrayOfStrings.filter(
@@ -9,4 +9,4 @@ export const formatDolarValueToNumber = (dolarValue: string) => {
   const dolarValueInNumber = Number(joinedStringsInNumberFormat);
 
   return dolarValueInNumber;
-};
+}
