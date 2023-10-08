@@ -27,7 +27,7 @@ export default function Home() {
         )}
         {result !== 0 && (
           <>
-            <Button variant>
+            <Button variant="true">
               <ArrowLeft />
               Voltar
             </Button>
