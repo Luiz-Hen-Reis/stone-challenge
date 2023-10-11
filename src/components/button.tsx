@@ -47,7 +47,7 @@ export default function Button({ children, disabled, variant }: Props) {
     dolarValue,
     taxValue,
     paymentMethod,
-    iofValue,
+    iofTaxValue,
     updateDolarValue,
     updateTaxValue,
   } = useAppContext();
@@ -64,7 +64,7 @@ export default function Button({ children, disabled, variant }: Props) {
         dolar,
         tax,
         dolarDayValue,
-        iofValue,
+        iofTaxValue,
         handleResult,
       });
       setIsCalculated(true);

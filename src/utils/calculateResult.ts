@@ -3,7 +3,7 @@ interface CalculateResultProps {
   dolar: number;
   tax: number;
   dolarDayValue: number;
-  iofValue: number;
+  iofTaxValue: number;
   handleResult: (newResult: number) => void;
 }
 
@@ -11,17 +11,17 @@ export default function calculateResult({
   paymentMethod,
   dolar,
   tax,
-  iofValue,
+  iofTaxValue,
   dolarDayValue,
   handleResult,
 }: CalculateResultProps) {
   if (paymentMethod === "card") {
-    const value = (dolar + tax + iofValue) * dolarDayValue;
+    const value = (dolar + tax * dolar + iofTaxValue * dolar) * dolarDayValue;
 
     value.toFixed(2);
     handleResult(value);
   } else {
-    const value = (dolar + tax) * (dolarDayValue + iofValue);
+    const value = (dolar + tax * dolar) * dolarDayValue + iofTaxValue * dolar;
 
     value.toFixed(2);
     handleResult(value);
