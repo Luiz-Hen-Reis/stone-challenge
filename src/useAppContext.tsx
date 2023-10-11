@@ -5,7 +5,7 @@ interface AppContextProps {
   taxValue: string;
   paymentMethod: "cash" | "card";
   result: number;
-  iofValue: number;
+  iofTaxValue: number;
   updateDolarValue: (newValue: string) => void;
   updateTaxValue: (newValue: string) => void;
   handlePaymentMethod: (paymentMethod: "cash" | "card") => void;
@@ -24,7 +24,7 @@ export function AppContextProvider({ children }: AppContextProviderProps) {
   const [paymentMethod, setPaymentMethod] = useState<"cash" | "card">("cash");
   const [result, setResult] = useState<number>(0);
 
-  const iofValue = paymentMethod === "card" ? 0.064 : 0.011;
+  const iofTaxValue = paymentMethod === "card" ? 0.064 : 0.011;
 
   const updateDolarValue = (newDolarValue: string) =>
     setDolarValue(newDolarValue);
@@ -44,7 +44,7 @@ export function AppContextProvider({ children }: AppContextProviderProps) {
         taxValue,
         paymentMethod,
         result,
-        iofValue,
+        iofTaxValue,
         updateDolarValue,
         updateTaxValue,
         handlePaymentMethod,
