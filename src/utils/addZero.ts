@@ -1,3 +1,3 @@
-export function addZero(number: number) {
-  return number >= 10 ? number : `0${number}`;
+export function addZero(number: number): string {
+  return number >= 10 ? number.toString() : `0${number}`;
 }
