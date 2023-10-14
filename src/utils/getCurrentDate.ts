@@ -10,7 +10,7 @@ export function getCurrentDate() {
   return `${addZero(dayOfTheMonth)} de ${numberToMonth(month)} de ${year}`;
 }
 
-function numberToMonth(monthInNumber: number): string {
+export function numberToMonth(monthInNumber: number): string {
   const monthsNames: string[] = [
     "Janeiro",
     "Fevereiro",
