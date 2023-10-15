@@ -17,7 +17,7 @@ export interface CurrencyData {
   };
 }
 
-const API_URL = "http://economia.awesomeapi.com.br/json/last/USD-BRL";
+const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 
 const fetchData = async () => {
   const response = await axios.get(API_URL);
