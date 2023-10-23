@@ -1,5 +1,5 @@
 
-# # The challenge was to create an app that converts dolars into reais
+# The challenge was to create an app that converts dolars into reais
 ## Challenge inspiration:
 
 [Challenge Repository](https://github.com/stone-payments/template-desafio-web)
